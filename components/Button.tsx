@@ -4,7 +4,7 @@ interface ButtonProps {
   text: string;
 }
 
-export function Button({ text }: ButtonProps) {
+export default function Button({ text }: ButtonProps) {
   const { pending } = useFormStatus();
 
   return (
