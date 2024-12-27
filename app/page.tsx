@@ -1,9 +1,31 @@
-import Link from "next/link";
+import Tweet from "@/components/Tweet";
+import TweetList from "@/components/TweetList";
+import db from "@/lib/db";
+import { Prisma } from "@prisma/client";
 
-export default function Page() {
+async function getInitialTweet() {
+  const tweets = await db.tweet.findMany({
+    orderBy: {
+      created_at: "desc",
+    },
+    take: 1,
+    include: {
+      user: true,
+    },
+  });
+  return tweets;
+}
+
+export type InitialTweetProps = Prisma.PromiseReturnType<
+  typeof getInitialTweet
+>;
+
+export default async function Page() {
+  const initialTweet = await getInitialTweet();
+
   return (
-    <div className="h-screen flex justify-center items-center">
-      <Link href="/log-in">로그인 하러가기</Link>
-    </div>
+    <section className="flex flex-col gap-4 w-full">
+      <TweetList initialTweet={initialTweet} />
+    </section>
   );
 }
