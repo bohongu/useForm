@@ -1,4 +1,4 @@
-import Tweet from "@/components/Tweet";
+import AddTweet from "@/components/AddTweet";
 import TweetList from "@/components/TweetList";
 import db from "@/lib/db";
 import { Prisma } from "@prisma/client";
@@ -25,6 +25,7 @@ export default async function Page() {
 
   return (
     <section className="flex flex-col gap-4 w-full">
+      <AddTweet />
       <TweetList initialTweet={initialTweet} />
     </section>
   );
